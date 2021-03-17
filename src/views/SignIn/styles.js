@@ -44,8 +44,9 @@ const useStyles = makeStyles(theme => ({
 
 
     },
-    formWrapper: {
-        // paddingTop: '3em'
+
+    loading: {
+        marginLeft: '10px'
     }
 }));
 

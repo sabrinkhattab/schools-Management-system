@@ -1,29 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, Paper, Avatar, TextField, Button } from '@material-ui/core';
+import {
+    Grid,
+    Typography,
+    Paper,
+    Avatar,
+    TextField,
+    Button,
+    FormControl,
+    CircularProgress
+} from '@material-ui/core';
 import useStyles from './styles';
 import backgroundImage from '../../assets/images/logo@2x.png'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import { getItemFromLocalStorage } from '../../helpers/localStorage'
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
 
 
 function SignIn({ state, getschoolLoginData, location, signIn }) {
-    const { register, handleSubmit } = useForm();
+
+
+    const { handleSubmit, control, errors: fieldsErrors, reset } = useForm();
+
     const classes = useStyles();
     let history = useHistory();
     const [schoolId, setSchoolId] = useState('')
     const [schoolName, setSchoolName] = useState('')
-    const [formState, setFormState] = useState({
-        isValid: false,
-        values: {},
-        touched: {},
-        errors: {}
-    });
-
 
     useEffect(() => {
         let schoolName = location.pathname.slice(4)
@@ -32,22 +37,6 @@ function SignIn({ state, getschoolLoginData, location, signIn }) {
 
         }).catch(err => console.log(err))
     }, [location]);
-
-    const handleChange = (event) => {
-        event.persist();
-
-        setFormState((prevFormState) => ({
-            ...prevFormState,
-            values: {
-                ...prevFormState.values,
-                [event.target.name]: [event.target.value]
-            },
-            //   touched: {
-            //     ...prevFormState.touched,
-            //     [event.target.name]: true
-            //   }
-        }));
-    };
 
 
     const onSubmit = data => {
@@ -60,7 +49,10 @@ function SignIn({ state, getschoolLoginData, location, signIn }) {
             console.log('err', err)
 
         })
+        console.log(data)
     };
+
+    console.log(state)
     return (
         < div className={classes.root} >
             <div className={classes.layer}>
@@ -109,33 +101,61 @@ function SignIn({ state, getschoolLoginData, location, signIn }) {
                                         <form className={classes.formWrapper} onSubmit={handleSubmit(onSubmit)}>
                                             <Grid container direction="column" spacing={2} alignItems="center" justify="center">
                                                 <Grid item>
-                                                    <TextField
-                                                        name='phone_number'
-                                                        label="email or phone"
-                                                        variant="outlined"
-                                                        color="secondary"
-                                                        required={true}
-                                                        type='textField'
-                                                        value={formState.values.phone_number || ''}
-                                                        onChange={handleChange}
-                                                        inputRef={register({ required: true })}
-                                                    />
+                                                    <FormControl fullWidth variant="outlined">
+                                                        <Controller
+                                                            name="phone_number"
+                                                            as={
+                                                                <TextField
+                                                                    id="phone_number"
+                                                                    helperText={fieldsErrors.phone_number ? fieldsErrors.phone_number.message : null}
+                                                                    variant="outlined"
+                                                                    label="Email or Phone"
+                                                                    error={fieldsErrors.phone_number ? true : false}
+                                                                />
+                                                            }
+                                                            control={control}
+                                                            defaultValue=""
+                                                            rules={{
+                                                                required: 'Required',
+                                                                pattern: [{
+                                                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                                                    message: 'invalid email address'
+                                                                },
+                                                                {
+                                                                    value: /^(010|011|012)[0-9]{8}$/i,
+                                                                    message: 'invalid phone number '
+                                                                }
+                                                                ]
+                                                            }}
+                                                        />
+                                                    </FormControl>
 
                                                 </Grid>
                                                 <Grid item>
-                                                    <TextField
-                                                        name='password'
-                                                        label="password"
-                                                        variant="outlined"
-                                                        color="secondary"
-                                                        type='password'
-                                                        value={formState.values.password || ''}
-                                                        onChange={handleChange}
-                                                        inputRef={register({ required: true })}
-                                                    />
+                                                    <FormControl fullWidth className={classes.margin} variant="outlined">
+                                                        <Controller
+                                                            name="password"
+                                                            as={
+                                                                <TextField
+                                                                    id="password"
+                                                                    type="password"
+                                                                    // labelWidth={70}
+                                                                    helperText={fieldsErrors.password ? fieldsErrors.password.message : null}
+                                                                    variant="outlined"
+                                                                    label="Password"
+                                                                    error={fieldsErrors.password ? true : false}
+                                                                />
+                                                            }
+                                                            control={control}
+                                                            defaultValue=""
+                                                            rules={{
+                                                                required: 'Required'
+                                                            }}
+                                                        />
+                                                    </FormControl>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Button variant="contained" type="submit" color="secondary">login</Button>
+                                                    <Button variant="contained" type="submit" color="secondary">login {state.signIn.singInIsLoading ? <CircularProgress size={20} className={classes.loading} /> : ''}</Button>
                                                 </Grid>
                                             </Grid>
 
