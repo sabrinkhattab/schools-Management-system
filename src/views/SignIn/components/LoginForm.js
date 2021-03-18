@@ -18,6 +18,8 @@ import * as actions from '../../../store/actions';
 import { useHistory } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import { CountrySelector } from './index'
+import { useToasts, ToastProvider } from 'react-toast-notifications';
+
 
 const schema = {
     password: {
@@ -37,6 +39,7 @@ const schema = {
 
 
 const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
+    const { addToast } = useToasts();
     const classes = useStyles();
     let history = useHistory();
     const { handleSubmit, register } = useForm();
@@ -110,8 +113,12 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
         let formData = { phone_number: data.user, password: data.password, 'sid': schoolId }
         signIn(formData).then(res => {
             history.push(`/sc/${schoolName}/dashboard`)
+            addToast('successfully logged in', { appearance: 'success', autoDismiss: true });
         }).catch(err => {
-            console.log('err', err)
+            addToast(err.response.data.detail, { appearance: 'error', autoDismiss: true });
+            console.log('err', Object.keys(err))
+            console.log('err', err.response.data.detail)
+
         })
         console.log(data)
     }
@@ -124,7 +131,7 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
                 <Grid container direction="column" spacing={2} alignItems="center" justify="center">
                     <Grid item lg={12}>
                         <Grid container >
-                            <Grid item lg={8}>
+                            <Grid item lg={12}>
                                 <TextField
                                     inputRef={register}
                                     name="user"
@@ -139,9 +146,9 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
                                     autoComplete="off"
                                 />
                             </Grid>
-                            <Grid item lg={4}>
+                            {/* <Grid item lg={4}>
                                 <CountrySelector />
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </Grid>
                     <Grid item lg={12}>
@@ -165,6 +172,7 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
                 </Grid>
 
             </form>
+
         </>
     )
 }
