@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import { useHistory } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
-
+import { CountrySelector } from './index'
 
 const schema = {
     password: {
@@ -122,23 +122,29 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
         <>
             <form className={classes.formWrapper} onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction="column" spacing={2} alignItems="center" justify="center">
-                    <Grid item>
-                        <TextField
-                            inputRef={register}
-                            name="user"
-                            defaultValue={formState.values.user}
-                            onChange={onChange}
-                            variant="outlined"
-                            helperText={
-                                hasError('user') ? formState.errors.user[0] : null
-                            }
-                            error={hasError('user')}
-                            label="user"
-                            autoComplete="off"
-
-                        />
+                    <Grid item lg={12}>
+                        <Grid container >
+                            <Grid item lg={8}>
+                                <TextField
+                                    inputRef={register}
+                                    name="user"
+                                    defaultValue={formState.values.user}
+                                    onChange={onChange}
+                                    variant="outlined"
+                                    helperText={
+                                        hasError('user') ? formState.errors.user[0] : null
+                                    }
+                                    error={hasError('user')}
+                                    label="user"
+                                    autoComplete="off"
+                                />
+                            </Grid>
+                            <Grid item lg={4}>
+                                <CountrySelector />
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item >
+                    <Grid item lg={12}>
                         <TextField
                             name="password"
                             type="password"
