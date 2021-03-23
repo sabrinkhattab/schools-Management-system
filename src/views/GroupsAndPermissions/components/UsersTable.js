@@ -19,6 +19,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import { useToasts } from 'react-toast-notifications';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex, removedUser }) => {
     const { addToast } = useToasts();
@@ -130,7 +133,12 @@ const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex,
                                             {`${user.first_name} ${user.middle_name} ${user.last_name}`}
                                         </TableCell>
                                         <TableCell align="center">
-                                            <Button onClick={() => { handleClickOpen(user) }}><DeleteIcon className={classes.deleteIcon} /></Button>
+                                            <Tooltip title="remove user from group">
+                                                <IconButton aria-label="" onClick={() => { handleClickOpen(user) }}>
+                                                    <DeleteIcon className={classes.deleteIcon} />
+                                                </IconButton>
+                                            </Tooltip>
+
                                         </TableCell>
 
                                     </TableRow>
@@ -153,9 +161,9 @@ const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex,
             <FormDialog
                 handleClose={handleCloseDelete}
                 open={open}
-                dialogTitle="Delete User "
-                dialogContentText="Are you sure you want to delete user from this group ...?"
-                ActionBtn="DELETE"
+                dialogTitle="Remove User "
+                dialogContentText="Are you sure you want to remove user from this group ...?"
+                ActionBtn="REMOVE"
                 onClickActionButton={onClickDeleteBtn}
                 loading={removedUser.IsLoading}
 
