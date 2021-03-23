@@ -1,12 +1,10 @@
 import * as actionTypes from './actionsTypes'
 import { getService } from '../../services';
-import { setItemInLocalStorage, getItemFromLocalStorage } from '../../helpers/localStorage'
-import Axios from 'axios';
 
 const GetAllPermissions = () => {
     return (dispatch, getState) => {
         dispatch({ type: actionTypes.GET_ALL_PERMISSIONS_TRIGGER });
-        return Axios.get('https://run.mocky.io/v3/c09d4401-3780-43b4-aff1-f16d242d2721')
+        return getService('/accounts/permissions')
             .then(response => {
                 // successfully get data
 

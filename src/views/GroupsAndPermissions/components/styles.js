@@ -30,6 +30,9 @@ const useStyles = makeStyles(theme => ({
     },
     addBtn: {
         textAlign: 'center'
+    },
+    CircularProgress: {
+        width: '25px'
     }
 
 }));

@@ -2,15 +2,24 @@ import React, { useState } from 'react'
 import useStyles from './styles'
 import { Grid } from '@material-ui/core'
 import { Permissions, Groups, Users } from './components'
-const GroupsAndPermissions = () => {
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions';
+
+const GroupsAndPermissions = ({ groupUsers, getGroupUsers }) => {
     const classes = useStyles()
     const [groupPermissions, setGroupPermissions] = useState([])
+    const [tableData, setTableData] = useState([])
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
 
     const onClickListItem = (event, group) => {
-        setSelectedIndex(group.id)
-        setGroupPermissions(group.permissions)
+        setSelectedIndex(group.group.id)
+        setGroupPermissions(group.group.permissions)
+        getGroupUsers(group.group.id).then(res => {
+            setTableData(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
     }
     return (
         <div className={classes.root}>
@@ -24,7 +33,7 @@ const GroupsAndPermissions = () => {
                             <Groups onClickGroup={onClickListItem} selectedIndex={selectedIndex} />
                         </Grid>
                         <Grid item lg={6}>
-                            <Users />
+                            <Users groupUsers={tableData} isLoading={groupUsers.IsLoading} selectedGroupIndex={selectedIndex} />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -33,4 +42,12 @@ const GroupsAndPermissions = () => {
     )
 }
 
-export default GroupsAndPermissions;
+const mapStateToProps = state => ({
+    groupUsers: state.groupUsers
+});
+
+const mapDispatchToProps = dispatch => ({
+    getGroupUsers: (groupId) => dispatch(actions.getGroupUsers(groupId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GroupsAndPermissions);

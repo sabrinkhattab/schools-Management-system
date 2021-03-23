@@ -7,7 +7,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useStyles from './styles'
-const FormDialog = ({ handleClose, open, dialogTitle, dialogContentText, dialogBody, ActionBtn }) => {
+import { CircularProgress } from '@material-ui/core';
+
+const FormDialog = ({
+    handleClose,
+    open,
+    dialogTitle,
+    dialogContentText,
+    dialogBody,
+    ActionBtn,
+    onClickActionButton,
+    loading
+}) => {
+
     const classes = useStyles()
     return (
         <div>
@@ -30,9 +42,9 @@ const FormDialog = ({ handleClose, open, dialogTitle, dialogContentText, dialogB
                 <DialogActions>
                     <Button onClick={handleClose} color="secondary" variant="contained">
                         Cancel
-          </Button>
-                    <Button onClick={handleClose} color="primary" variant="contained">
-                        {ActionBtn}
+                    </Button>
+                    <Button onClick={onClickActionButton} color="primary" variant="contained">
+                        {ActionBtn}{loading ? <CircularProgress size={20} style={{ marginLeft: '5px' }} color="secondary" /> : ''}
                     </Button>
                 </DialogActions>
             </Dialog>

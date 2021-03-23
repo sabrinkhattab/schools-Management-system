@@ -1,14 +1,13 @@
 import Axios from 'axios';
 // import { getItemFromLocalStorage } from 'helpers';
 
-// const userToken = getItemFromLocalStorage('userToken');
-
+const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NTgzMTMyLCJqdGkiOiJhMzZjOWZlM2YyMjA0Y2JkYjE2ZTFmYzI3MjUwYTVjMyIsInVzZXJfaWQiOjF9.A1BLbhMWipqRZkPXNfQYJA4Frog9h9dW6XAYtkaIzQw'
 const postService = (
     route,
     data,
     headers = {
         'Content-Type': 'application/json',
-        // Authorization: `${userToken}`
+        Authorization: `Bearer ${userToken}`
     }
 ) => {
     return Axios.post(

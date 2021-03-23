@@ -34,7 +34,7 @@ const Permissions = ({ permissions, getAllPermissions, groupPermissions }) => {
                     permissions && permissions.permissions && permissions.permissions.map((item) => (
                         <Chip
                             key={item.id}
-                            label={item.codename}
+                            label={item.name}
                             onDelete={handleDelete}
                             clickable
                             onClick={() => { handleClick(item) }}

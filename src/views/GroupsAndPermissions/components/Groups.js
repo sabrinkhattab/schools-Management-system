@@ -26,11 +26,11 @@ const Groups = ({ groups, getAllGroups, onClickGroup, selectedIndex }) => {
                         <div key={`listItem-${index}`}>
                             <ListItem
                                 button
-                                selected={selectedIndex === group.id}
+                                selected={selectedIndex === group.group.id}
                                 onClick={(event) => onClickGroup(event, group)}
 
                             >
-                                <ListItemText primary={group.name} />
+                                <ListItemText primary={group.group.name} />
                                 <ListItemIcon>
                                     <DeleteIcon className={classes.deleteIcon} />
                                 </ListItemIcon>

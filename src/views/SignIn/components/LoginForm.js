@@ -5,9 +5,6 @@ import {
     TextField,
     Button,
     CircularProgress,
-    MenuItem,
-    InputLabel,
-    Select
 } from '@material-ui/core';
 import useStyles from './styles';
 import validate from 'validate.js';
@@ -17,8 +14,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import { useHistory } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
-import { CountrySelector } from './index'
-import { useToasts, ToastProvider } from 'react-toast-notifications';
+import { useToasts } from 'react-toast-notifications';
 
 
 const schema = {
