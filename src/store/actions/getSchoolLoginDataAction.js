@@ -14,7 +14,8 @@ const getSchoolLoginData = (school_url) => {
                     id: response.data.id,
                     welcome_message: response.data.welcome_message,
                     name: response.data.name,
-                    logo: response.data.logo
+                    logo: response.data.logo,
+                    country: response.data.country
                 });
                 setItemInLocalStorage('schoolId', response.data.id)
 

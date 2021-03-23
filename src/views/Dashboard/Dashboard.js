@@ -5,7 +5,7 @@ import { isPossiblePhoneNumber, isValidPhoneNumber } from 'libphonenumber-js'
 import parsePhoneNumber from 'libphonenumber-js'
 
 import { withRouter } from 'react-router-dom';
-
+import { ResponsiveDrawer } from '../../layout'
 
 
 const Dashboard = () => {
@@ -14,12 +14,14 @@ const Dashboard = () => {
     console.log(phone)
 
     return (
-        <Grid container justify="center" alignItems="center">
-            <Grid item>
-                welcome to dashboard ....
-            </Grid>
+        // <Grid container justify="center" alignItems="center">
+        //     <Grid item>
+        //     </Grid>
 
-        </Grid>
+        // </Grid>
+        <>
+            <ResponsiveDrawer />
+        </>
     )
 }
 

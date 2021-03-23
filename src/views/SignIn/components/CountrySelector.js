@@ -5,40 +5,26 @@ import { useForm } from 'react-hook-form';
 import countryData from '../../../assets/data/countryData'
 import SvgIcon from '@material-ui/core/SvgIcon';
 
-const CountrySelector = () => {
-  const [selectedCountry, setSelectedCountry] = useState('')
+const CountrySelector = ({ handleChange, value, inputRef, data, name }) => {
   const { register } = useForm();
-  const [currency, setCurrency] = React.useState('EUR');
-
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
-  };
-
-  let schoolcode = 'US'
-  let data = [
-    {
-      "id": 1,
-      "name": "Afghanistan",
-      "dialing_code": "93",
-      "iso_code": "AF"
-    },
-    {
-      "id": 2,
-      "name": "Albania",
-      "dialing_code": "355",
-      "iso_code": "AL"
-    }
-  ]
-
-  const changeHandler = value => {
-    setSelectedCountry(value)
-  }
-  console.log(countryData)
-
   return (
     <>
-      <FormControl>
-        <TextField
+      <TextField
+        select
+        // label="country code"
+        defaultValue={value}
+        onChange={handleChange}
+        variant="outlined"
+        inputRef={register}
+        name={name}
+      >
+        {data.map((option) => (
+          <option key={option.id} value={option.iso_code}>
+            {option.name} {option.dialing_code}
+          </option>
+        ))}
+      </TextField>
+      {/* <TextField
           id="outlined-select-currency-native"
           select
           label="country"
@@ -76,9 +62,8 @@ const CountrySelector = () => {
           }}
           aria-label="United States"
           svg
-        />
+        /> */}
 
-      </FormControl>
     </>
   )
 }

@@ -6,6 +6,7 @@ const initState = {
     welcome_message: null,
     name: null,
     logo: null,
+    country: null,
     getSchoolLoginDataError: null
 };
 
@@ -26,6 +27,7 @@ const getSchoolLoginDataReducer = (state = initState, action) => {
                 welcome_message: action.welcome_message,
                 name: action.name,
                 logo: action.logo,
+                country: action.country
             };
         case actionTypes.GET_SCHOOL_LOGIN_DATA_FAIL:
             return {

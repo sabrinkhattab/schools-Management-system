@@ -370,13 +370,13 @@ const countryData = [
         "id": 62,
         "name": "Ecuador",
         "dialing_code": "593",
-        "iso_code": "EC / EC"
+        "iso_code": "EC"
     },
     {
         "id": 63,
         "name": "Egypt",
         "dialing_code": "20",
-        "iso_code": "EG / EG"
+        "iso_code": "EG"
     },
     {
         "id": 64,
