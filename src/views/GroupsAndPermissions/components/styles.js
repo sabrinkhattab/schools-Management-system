@@ -33,6 +33,9 @@ const useStyles = makeStyles(theme => ({
     },
     CircularProgress: {
         width: '25px'
+    },
+    dialogCustomizedWidth: {
+        'max-width': '80%'
     }
 
 }));

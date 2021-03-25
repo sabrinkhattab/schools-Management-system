@@ -5,6 +5,9 @@ import getAllPermissions from './getAllPermissionsReducer'
 import getAllGroupsReducer from './getAllGroupsReducer'
 import getGroupUsers from './getGroupUsersReducer'
 import removeUserFromGroup from './removeUserFromGroupReducer'
+import addUserToGroup from './addUserToGroupReducer'
+import listAllUsers from './listAllUsersReducer'
+import deleteGroup from './deleteGroupReducer'
 
 const rootReducer = combineReducers({
     signIn: signInReducer,
@@ -12,7 +15,10 @@ const rootReducer = combineReducers({
     permissions: getAllPermissions,
     groups: getAllGroupsReducer,
     groupUsers: getGroupUsers,
-    removedUser: removeUserFromGroup
+    removedUser: removeUserFromGroup,
+    addedUser: addUserToGroup,
+    AllUsers: listAllUsers,
+    deletedGroup: deleteGroup
 });
 
 export default rootReducer;

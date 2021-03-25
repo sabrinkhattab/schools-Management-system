@@ -4,7 +4,6 @@ import { UsersTable } from './index'
 
 import useStyles from './styles'
 const Users = ({ groupUsers, isLoading, selectedGroupIndex }) => {
-    console.log(isLoading)
     const classes = useStyles()
     return (
         <>

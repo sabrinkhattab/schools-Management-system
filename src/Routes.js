@@ -1,7 +1,6 @@
 import React, { lazy } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { ResponsiveDrawer } from './layout'
-
 const SignIn = lazy(() => import('./views/SignIn'));
 const Dashboard = lazy(() => import('./views/Dashboard'));
 const AddSchool = lazy(() => import('./views/AddSchool'));
@@ -24,7 +23,7 @@ const Routes = () => {
                     </ResponsiveDrawer>
                 }
             />
-            <Route exact path="/groups-permissions"
+            <Route exact path="/sc/:schoolName/groups-permissions"
                 render={matchProps =>
                     <ResponsiveDrawer>
                         <GroupsAndPermissions {...matchProps} />

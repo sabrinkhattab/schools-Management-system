@@ -8,7 +8,10 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    Button
+    Button,
+    Grid,
+    TextField,
+    MenuItem
 } from '@material-ui/core'
 import SearchBar from "material-ui-search-bar";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -23,7 +26,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
 
-const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex, removedUser }) => {
+const UsersTable = ({
+    tableData,
+    isLoading,
+    removeGroupUser,
+    selectedGroupIndex,
+    removedUser,
+    getAllUsers,
+    users,
+    addUserToGroup,
+    addedUser
+}) => {
     const { addToast } = useToasts();
     const [open, setOpen] = React.useState(false);
     const [openAdd, setOpenAdd] = React.useState(false);
@@ -32,8 +45,56 @@ const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex,
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [rows, setRows] = useState(tableData)
+    const [selectedUser, setSelectedUser] = useState('')
     const classes = useStyles()
 
+    const addUserDialogBody = () => (
+        (users.IsLoading) ?
+            <Grid container justify="center" alignItems="center">
+                <Grid item>
+                    <CircularProgress />
+                </Grid>
+            </Grid> :
+            <form>
+                <Grid container>
+                    <Grid item lg={12}>
+                        <TextField
+                            select
+                            label="Users"
+                            name="user"
+                            fullWidth
+                            variant="outlined"
+                            value={selectedUser}
+                            onChange={onSelectUserChange}
+                        >
+                            {
+                                users && users.users && users.users.map((user) => (
+                                    <MenuItem key={user.user_id} value={user.user_id}>
+                                        {`${user.first_name} ${user.middle_name} ${user.last_name}`}
+                                    </MenuItem>
+                                ))
+                            }
+                        </TextField>
+
+                    </Grid>
+                </Grid>
+
+            </form>
+    )
+
+    const onSelectUserChange = (event) => {
+        setSelectedUser(event.target.value)
+    }
+    const onClickAddButton = () => {
+        addUserToGroup({ group_id: selectedGroupIndex, user_id: selectedUser }).then(res => {
+            rows.push(res.data)
+            setRows(rows)
+            addToast('user added to group successfully', { appearance: 'success', autoDismiss: true });
+            setOpenAdd(false);
+        }).catch(err => {
+
+        })
+    }
     const search = (value) => {
         console.log(value)
     }
@@ -73,6 +134,11 @@ const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex,
     };
     const handleClickOpenAdd = () => {
         setOpenAdd(true);
+        getAllUsers(selectedGroupIndex).then(res => {
+            console.log('res', res)
+        }).catch(err => {
+            console.log(err)
+        })
     };
 
     const handleCloseADD = () => {
@@ -91,7 +157,7 @@ const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex,
         setRows(tableData)
     }, [tableData])
 
-
+    console.log('selectedGroupIndex', selectedGroupIndex)
     return (
         <>
             <SearchBar
@@ -157,7 +223,7 @@ const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex,
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-            <Button onClick={handleClickOpenAdd}><AddCircleIcon className={classes.addIcon} /></Button>
+            <Button onClick={handleClickOpenAdd} disabled={selectedGroupIndex === 0}><AddCircleIcon className={classes.addIcon} /></Button>
             <FormDialog
                 handleClose={handleCloseDelete}
                 open={open}
@@ -175,19 +241,26 @@ const UsersTable = ({ tableData, isLoading, removeGroupUser, selectedGroupIndex,
                 dialogTitle="Add User "
                 dialogContentText="Add new user to this group .."
                 ActionBtn="ADD"
-            // onClickActionButton={ }
-
+                dialogBody={addUserDialogBody()}
+                contentStyle={{ width: '400px' }}
+                onClickActionButton={onClickAddButton}
+                loading={addedUser.IsLoading}
             />
         </>
     )
 }
 
 const mapStateToProps = state => ({
-    removedUser: state.removedUser
+    removedUser: state.removedUser,
+    users: state.AllUsers,
+    addedUser: state.addedUser
 });
 
 const mapDispatchToProps = dispatch => ({
     removeGroupUser: ({ group_id, user_id }) => dispatch(actions.removeUserFromGroup({ group_id, user_id })),
+    getAllUsers: (groupId) => dispatch(actions.listAllUsers(groupId)),
+    addUserToGroup: ({ user_id, group_id }) => dispatch(actions.addUserToGroup({ user_id, group_id }))
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersTable);

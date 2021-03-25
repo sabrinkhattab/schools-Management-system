@@ -17,15 +17,22 @@ const FormDialog = ({
     dialogBody,
     ActionBtn,
     onClickActionButton,
-    loading
+    loading,
+    contentStyle
+
 }) => {
 
-    const classes = useStyles()
+    const styles = useStyles()
     return (
-        <div>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <div >
+            <Dialog
+                open={open}
+                onClose={handleClose}
+
+            >
+
                 <DialogTitle id="form-dialog-title" >{dialogTitle}</DialogTitle>
-                <DialogContent>
+                <DialogContent style={contentStyle}>
                     <DialogContentText>
                         {dialogContentText}
                     </DialogContentText>

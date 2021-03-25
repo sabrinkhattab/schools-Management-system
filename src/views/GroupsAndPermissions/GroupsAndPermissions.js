@@ -21,6 +21,7 @@ const GroupsAndPermissions = ({ groupUsers, getGroupUsers }) => {
             console.log(err)
         })
     }
+
     return (
         <div className={classes.root}>
             <Grid container direction="column" spacing={2}>

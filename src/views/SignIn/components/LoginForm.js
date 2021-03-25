@@ -108,7 +108,7 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
     const onSubmit = (data) => {
         let formData = { phone_number: data.user, password: data.password, 'sid': schoolId }
         signIn(formData).then(res => {
-            history.push(`/sc/${schoolName}/dashboard`)
+            history.push(`/sc/${schoolName}/groups-permissions`)
             addToast('successfully logged in', { appearance: 'success', autoDismiss: true });
         }).catch(err => {
             addToast(err.response.data.detail, { appearance: 'error', autoDismiss: true });

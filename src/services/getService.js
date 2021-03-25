@@ -1,7 +1,6 @@
 import Axios from 'axios';
-import { getItemFromLocalStorage } from '../../src/helpers/localStorage';
 
-const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NTgzMTMyLCJqdGkiOiJhMzZjOWZlM2YyMjA0Y2JkYjE2ZTFmYzI3MjUwYTVjMyIsInVzZXJfaWQiOjF9.A1BLbhMWipqRZkPXNfQYJA4Frog9h9dW6XAYtkaIzQw'
+const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NjgxODMzLCJqdGkiOiJmZTUwNGNlZTM0ZTE0MWEzYjhmNWRkMWZmM2VlMzY1OSIsInVzZXJfaWQiOjF9.bHcW1C6dgTSK4Xxq9vF1SsCIZCgqSk_8JU7xI8BxehI'
 
 const getService = (
     route,
