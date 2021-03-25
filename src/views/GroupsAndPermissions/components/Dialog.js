@@ -36,14 +36,6 @@ const FormDialog = ({
                     <DialogContentText>
                         {dialogContentText}
                     </DialogContentText>
-                    {/* <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                    /> */}
                     {dialogBody}
                 </DialogContent>
                 <DialogActions>

@@ -2,34 +2,34 @@ import * as actionTypes from '../actions/actionsTypes';
 
 const initState = {
     IsLoading: false,
-    user: null,
-    addUserToGroupError: null
+    group: null,
+    createNewGroupError: null
 };
 
-const addUserToGroupReducer = (state = initState, action) => {
+const createNewGroupReducer = (state = initState, action) => {
     switch (action.type) {
-        case actionTypes.ADD_USER_TO_GROUP_TRIGGER:
+        case actionTypes.CREATE_NEW_GROUP_TRIGGER:
             return {
                 ...state,
                 IsLoading: true,
-                addUserToGroupError: null
+                createNewGroupError: null
             };
-        case actionTypes.ADD_USER_TO_GROUP_SUCCESS:
+        case actionTypes.CREATE_NEW_GROUP_SUCCESS:
             return {
                 ...state,
                 IsLoading: false,
-                addUserToGroupError: null,
-                user: action.user
+                createNewGroupError: null,
+                group: action.group
             };
-        case actionTypes.ADD_USER_TO_GROUP_FAIL:
+        case actionTypes.CREATE_NEW_GROUP_FAIL:
             return {
                 ...state,
                 IsLoading: false,
-                addUserToGroupError: action.error
+                createNewGroupError: action.error
             };
         default:
             return { ...state };
     }
 };
 
-export default addUserToGroupReducer;
+export default createNewGroupReducer;

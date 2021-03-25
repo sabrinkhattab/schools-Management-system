@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import useStyles from './styles'
-import { Paper, Grid, TextField, Typography, List, ListItem, ListItemIcon, Divider, ListItemText } from '@material-ui/core'
+import { Paper, Button, Grid, TextField, Typography, List, ListItem, ListItemIcon, Divider, ListItemText } from '@material-ui/core'
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { FormDialog } from './index'
 import { useToasts, ToastProvider } from 'react-toast-notifications';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const Groups = ({
     groups,
@@ -17,17 +18,59 @@ const Groups = ({
     editedGroup,
     deleteGroup,
     deletedGroup,
-    ListArrayIndex
+    ListArrayIndex,
+    createNewGroup,
+    newelyCreatedGroup
 
 }) => {
     const { addToast } = useToasts();
     const classes = useStyles()
     const [openDel, setOpenDel] = useState(false)
     const [openEdit, setOpenEdit] = useState(false)
+    const [openAdd, setOpenAdd] = useState(false)
     const [selectedGroup, setSelectedGroup] = useState({})
     const [groupNameValue, setGroupNameValue] = useState('')
+    const [newelyAddedGroupValue, setNewelyAddedGroupValue] = useState('')
+
     const [rows, setRows] = useState([])
 
+    const handleClickOpenAdd = () => {
+        setOpenAdd(true);
+    }
+
+    const handleCloseAdd = () => {
+        setOpenAdd(false);
+    }
+    const onAddGroupNameChange = (event) => {
+        setNewelyAddedGroupValue(event.target.value)
+    }
+    const AddGroupDialogBody = () => {
+        return (
+            <Grid container>
+                <Grid item lg={12}>
+                    <TextField
+                        variant="outlined"
+                        name="group-name"
+                        label="Group Name"
+                        fullWidth
+                        value={newelyAddedGroupValue}
+                        onChange={onAddGroupNameChange}
+                        type="text"
+                    />
+                </Grid>
+            </Grid>
+        )
+    }
+
+    const onClickAddButton = () => {
+        let data = { group: { name: newelyAddedGroupValue }, group_type: 2 }
+        createNewGroup(data).then(res => {
+            rows.push(res.data)
+            setRows(rows)
+            addToast('user added to group successfully', { appearance: 'success', autoDismiss: true });
+            setOpenAdd(false);
+        }).catch(err => console.log(err))
+    }
 
     const handleCloseDelete = () => {
         setOpenDel(false);
@@ -73,6 +116,7 @@ const Groups = ({
                         fullWidth
                         value={groupNameValue ? groupNameValue : ''}
                         onChange={onEditGroupNameChange}
+                        type="text"
                     />
                 </Grid>
             </Grid>
@@ -85,7 +129,6 @@ const Groups = ({
         }).catch(err => {
 
         })
-        console.log(ListArrayIndex)
     }
 
     useEffect(() => {
@@ -131,6 +174,10 @@ const Groups = ({
                             </div>
                         ))}
                     </List>
+                    <Button
+                        onClick={handleClickOpenAdd}>
+                        <AddCircleIcon className={classes.addIcon} />
+                    </Button>
                 </Paper>
                 <FormDialog
                     handleClose={handleCloseDelete}
@@ -152,6 +199,16 @@ const Groups = ({
                     onClickActionButton={onClickEditButton}
                     loading={editedGroup.IsLoading}
                 />
+                <FormDialog
+                    handleClose={handleCloseAdd}
+                    open={openAdd}
+                    dialogTitle="Add New Group"
+                    ActionBtn="Add"
+                    dialogBody={AddGroupDialogBody()}
+                    contentStyle={{ width: '400px' }}
+                    onClickActionButton={onClickAddButton}
+                    loading={newelyCreatedGroup.IsLoading}
+                />
 
             </div>
         </ToastProvider>
@@ -163,14 +220,15 @@ const Groups = ({
 const mapStateToProps = state => ({
     groups: state.groups,
     editedGroup: state.editedGroup,
-    deletedGroup: state.deletedGroup
+    deletedGroup: state.deletedGroup,
+    newelyCreatedGroup: state.newGroup
 });
 
 const mapDispatchToProps = dispatch => ({
     getAllGroups: () => dispatch(actions.getAllGroups()),
     editGroupName: (groupId, { name }) => dispatch(actions.editGroupName(groupId, { name })),
-    deleteGroup: (groupId) => dispatch(actions.deleteGroup(groupId))
-
+    deleteGroup: (groupId) => dispatch(actions.deleteGroup(groupId)),
+    createNewGroup: ({ group, group_type }) => dispatch(actions.createNewGroup({ group, group_type }))
 });
 
 
