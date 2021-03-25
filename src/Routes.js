@@ -23,7 +23,7 @@ const Routes = () => {
                     </ResponsiveDrawer>
                 }
             />
-            <Route exact path="/sc/:schoolName/groups_permissions"
+            <Route exact path="/groups_permissions"
                 render={matchProps =>
                     <ResponsiveDrawer>
                         <GroupsAndPermissions {...matchProps} />
@@ -32,7 +32,7 @@ const Routes = () => {
             />
             <Route exact path="/view-school" component={ViewSchool} />
             <Route exact path="/edit-school" component={EditSchool} />
-            <Redirect to="/groups-permissions" />
+            <Redirect to="/groups_permissions" />
         </Switch>
     );
 };
