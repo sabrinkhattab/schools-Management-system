@@ -1,10 +1,12 @@
 import * as actionTypes from './actionsTypes'
 import { putService } from '../../services';
 
-const editGroupName = (groupId) => {
+const editGroupName = (groupId, { name }) => {
     return (dispatch, getState) => {
         dispatch({ type: actionTypes.EDIT_GROUP_NAME_TRIGGER });
-        return putService(`/accounts/edit_group/${groupId}`)
+        return putService(`/accounts/edit_group/${groupId}`, {
+            name
+        })
             .then(response => {
                 // successfully get data
 

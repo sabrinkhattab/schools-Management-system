@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
-const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NjgxODMzLCJqdGkiOiJmZTUwNGNlZTM0ZTE0MWEzYjhmNWRkMWZmM2VlMzY1OSIsInVzZXJfaWQiOjF9.bHcW1C6dgTSK4Xxq9vF1SsCIZCgqSk_8JU7xI8BxehI'
+const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NzQ5OTY5LCJqdGkiOiI0Njg3NzFmODhkNWM0YmQ4OTg1MzI2MjhlZjkyMGZkYiIsInVzZXJfaWQiOjF9.JV9AIpK5EGVf6VAjR4doIRrC8Q2ruA9rk8aO-FpQ7TU'
+console.log('hello from get service')
 
 const getService = (
     route,

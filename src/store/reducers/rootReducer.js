@@ -8,6 +8,7 @@ import removeUserFromGroup from './removeUserFromGroupReducer'
 import addUserToGroup from './addUserToGroupReducer'
 import listAllUsers from './listAllUsersReducer'
 import deleteGroup from './deleteGroupReducer'
+import editGroupName from './editGroupNameReducer'
 
 const rootReducer = combineReducers({
     signIn: signInReducer,
@@ -18,7 +19,9 @@ const rootReducer = combineReducers({
     removedUser: removeUserFromGroup,
     addedUser: addUserToGroup,
     AllUsers: listAllUsers,
-    deletedGroup: deleteGroup
+    deletedGroup: deleteGroup,
+    editedGroup: editGroupName
+
 });
 
 export default rootReducer;

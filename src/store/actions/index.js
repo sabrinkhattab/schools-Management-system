@@ -6,4 +6,6 @@ export { default as getGroupUsers } from './getGroupUsersAction'
 export { default as removeUserFromGroup } from './removeUserFromGroupAction'
 export { default as addUserToGroup } from './addUserToGroupAction'
 export { default as listAllUsers } from './listAllUsersAction'
-export { default as deleteGroup } from './listAllUsersAction'
+export { default as deleteGroup } from './deleteGroupAction'
+export { default as editGroupName } from './editGroupNameAction'
+

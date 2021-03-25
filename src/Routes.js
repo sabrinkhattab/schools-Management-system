@@ -23,7 +23,7 @@ const Routes = () => {
                     </ResponsiveDrawer>
                 }
             />
-            <Route exact path="/sc/:schoolName/groups-permissions"
+            <Route exact path="/sc/:schoolName/groups_permissions"
                 render={matchProps =>
                     <ResponsiveDrawer>
                         <GroupsAndPermissions {...matchProps} />

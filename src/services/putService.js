@@ -1,9 +1,10 @@
 import Axios from 'axios';
 import { getItemFromLocalStorage, removeItemFromLocalStorage } from '../helpers/localStorage';
-console.log('hello from post service')
+
+console.log('hello from put service')
 
 let userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NzQ5OTY5LCJqdGkiOiI0Njg3NzFmODhkNWM0YmQ4OTg1MzI2MjhlZjkyMGZkYiIsInVzZXJfaWQiOjF9.JV9AIpK5EGVf6VAjR4doIRrC8Q2ruA9rk8aO-FpQ7TU'
-const postService = (
+const putService = (
     route,
     data,
     headers = {
@@ -11,11 +12,11 @@ const postService = (
         Authorization: `Bearer ${userToken}`
     }
 ) => {
-    return Axios.post(
+    return Axios.put(
         `${process.env.REACT_APP_SERVER_URL}${route}`,
         { ...data },
         { headers: headers }
     );
 };
 
-export default postService;
+export default putService;
