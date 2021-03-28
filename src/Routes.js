@@ -12,7 +12,7 @@ const Routes = () => {
 
     return (
         <Switch>
-            <Redirect exact from="/" to="/sc/:school_url" />
+            <Redirect exact from="/" to="/home" />
             <Route exact path="/sc/:school_url" component={SignIn}
             />
             <Route exact path="/sc/:schoolName/dashboard" component={Dashboard} />
