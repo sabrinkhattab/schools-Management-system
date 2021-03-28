@@ -12,7 +12,7 @@ const Routes = () => {
 
     return (
         <Switch>
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/sc/:school_url" />
             <Route exact path="/sc/:school_url" component={SignIn}
             />
             <Route exact path="/sc/:schoolName/dashboard" component={Dashboard} />
@@ -23,7 +23,7 @@ const Routes = () => {
                     </ResponsiveDrawer>
                 }
             />
-            <Route exact path="/groups_permissions"
+            <Route exact path="/sc/:schoolName/groups_permissions"
                 render={matchProps =>
                     <ResponsiveDrawer>
                         <GroupsAndPermissions {...matchProps} />
@@ -32,7 +32,7 @@ const Routes = () => {
             />
             <Route exact path="/view-school" component={ViewSchool} />
             <Route exact path="/edit-school" component={EditSchool} />
-            <Redirect to="/groups_permissions" />
+            <Redirect to="/not-found" />
         </Switch>
     );
 };

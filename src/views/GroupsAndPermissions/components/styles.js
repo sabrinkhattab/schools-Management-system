@@ -36,6 +36,17 @@ const useStyles = makeStyles(theme => ({
     },
     dialogCustomizedWidth: {
         'max-width': '80%'
+    },
+    chip: {
+        // backgroundColor: "#59d8ef",
+        // "&:hover": {
+        //     backgroundColor: theme.palette.success.light,
+        //     cursor: "pointer"
+        // },
+        // "&:focus": {
+        //     backgroundColor: theme.palette.success.main,
+        //     cursor: "pointer"
+        // }
     }
 
 }));

@@ -138,6 +138,7 @@ const Groups = ({
             console.log(err)
         })
     }, [])
+
     useEffect(() => {
         setRows(groups.groups)
     }, [groups.groups])

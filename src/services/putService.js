@@ -3,7 +3,7 @@ import { getItemFromLocalStorage, removeItemFromLocalStorage } from '../helpers/
 
 console.log('hello from put service')
 
-let userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NzQ5OTY5LCJqdGkiOiI0Njg3NzFmODhkNWM0YmQ4OTg1MzI2MjhlZjkyMGZkYiIsInVzZXJfaWQiOjF9.JV9AIpK5EGVf6VAjR4doIRrC8Q2ruA9rk8aO-FpQ7TU'
+let userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE3MDIwNTkxLCJqdGkiOiJkYWM4ZmRiYmZlMjA0YTAzODcwNmQ1ZTdjZGE2YjhlNiIsInVzZXJfaWQiOjF9.0sbNh51tgjENgoOB3E02Aqm2i-u8NBhh46hOvMxWB4Q'
 const putService = (
     route,
     data,

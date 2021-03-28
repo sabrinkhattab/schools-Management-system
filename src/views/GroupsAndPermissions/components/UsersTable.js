@@ -24,7 +24,7 @@ import * as actions from '../../../store/actions';
 import { useToasts } from 'react-toast-notifications';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const UsersTable = ({
     tableData,
@@ -46,6 +46,7 @@ const UsersTable = ({
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [rows, setRows] = useState(tableData)
     const [selectedUser, setSelectedUser] = useState('')
+
     const classes = useStyles()
 
     const addUserDialogBody = () => (
@@ -55,38 +56,29 @@ const UsersTable = ({
                     <CircularProgress />
                 </Grid>
             </Grid> :
-            <form>
-                <Grid container>
-                    <Grid item lg={12}>
-                        <TextField
-                            select
-                            label="Users"
-                            name="user"
-                            fullWidth
-                            variant="outlined"
-                            value={selectedUser}
-                            onChange={onSelectUserChange}
-                        >
-                            {
-                                users && users.users && users.users.map((user) => (
-                                    <MenuItem key={user.user_id} value={user.user_id}>
-                                        {`${user.first_name} ${user.middle_name} ${user.last_name}`}
-                                    </MenuItem>
-                                ))
-                            }
-                        </TextField>
 
-                    </Grid>
+            <Grid container>
+                <Grid item lg={12}>
+                    <Autocomplete
+                        onChange={onSelectUserChange}
+                        options={users && users.users && users.users}
+                        getOptionLabel={(options) => `${options.first_name} ${options.middle_name} ${options.last_name}`}
+                        style={{ width: 300 }}
+                        renderInput={(params) => <TextField
+                            {...params} label="Users" variant="outlined" />}
+                    />
+
+
                 </Grid>
+            </Grid>
 
-            </form>
     )
 
-    const onSelectUserChange = (event) => {
-        setSelectedUser(event.target.value)
+    const onSelectUserChange = (event, value) => {
+        setSelectedUser(value)
     }
     const onClickAddButton = () => {
-        addUserToGroup({ group_id: selectedGroupIndex, user_id: selectedUser }).then(res => {
+        addUserToGroup({ group_id: selectedGroupIndex, user_id: selectedUser.user_id }).then(res => {
             rows.push(res.data)
             setRows(rows)
             addToast('user added to group successfully', { appearance: 'success', autoDismiss: true });
@@ -95,6 +87,8 @@ const UsersTable = ({
 
         })
     }
+
+
     const search = (value) => {
         console.log(value)
     }
@@ -157,7 +151,6 @@ const UsersTable = ({
         setRows(tableData)
     }, [tableData])
 
-    console.log('selectedGroupIndex', selectedGroupIndex)
     return (
         <>
             <SearchBar

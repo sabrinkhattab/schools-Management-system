@@ -5,6 +5,7 @@ import { Permissions, Groups, Users } from './components'
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import { ToastProvider } from 'react-toast-notifications'
+
 const GroupsAndPermissions = ({ groupUsers, getGroupUsers }) => {
     const classes = useStyles()
     const [groupPermissions, setGroupPermissions] = useState([])
@@ -22,14 +23,13 @@ const GroupsAndPermissions = ({ groupUsers, getGroupUsers }) => {
             console.log(err)
         })
     }
-
     return (
         <ToastProvider>
 
             <div className={classes.root}>
                 <Grid container direction="column" spacing={2}>
                     <Grid item>
-                        <Permissions groupPermissions={groupPermissions} />
+                        <Permissions groupPermissions={groupPermissions} selectedIndex={selectedIndex} />
                     </Grid>
                     <Grid item>
                         <Grid container spacing={2}>
