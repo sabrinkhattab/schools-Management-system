@@ -7,12 +7,13 @@ import * as actions from '../../store/actions';
 import { ToastProvider } from 'react-toast-notifications'
 
 const GroupsAndPermissions = ({ groupUsers, getGroupUsers }) => {
+    let token = localStorage.getItem('accessToken');
+
     const classes = useStyles()
     const [groupPermissions, setGroupPermissions] = useState([])
     const [tableData, setTableData] = useState([])
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [ListArrayIndex, setListArrayIndex] = useState('')
-
     const onClickListItem = (event, group, index) => {
         setListArrayIndex(index)
         setSelectedIndex(group.group.id)
@@ -23,6 +24,7 @@ const GroupsAndPermissions = ({ groupUsers, getGroupUsers }) => {
             console.log(err)
         })
     }
+
     return (
         <ToastProvider>
 

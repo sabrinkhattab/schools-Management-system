@@ -25,7 +25,8 @@ const signInAction = ({ phone_number, password, sid }) => {
                     let accessToken = response.data.access;
                     // refreshToken
                     let refreshToken = response.data.refresh;
-                    setItemInLocalStorage('accessToken' , accessToken)
+                    // setItemInLocalStorage('accessToken' , accessToken)
+                    localStorage.setItem('accessToken', accessToken);
                     return Promise.resolve('Signed in successfully');
                 },
                     error => {
