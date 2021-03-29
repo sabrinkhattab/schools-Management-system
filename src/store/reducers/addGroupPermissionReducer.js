@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionsTypes';
 
 const initState = {
     IsLoading: false,
-    group: null,
+    groupPermissions: null,
     addGroupPermissionError: null
 };
 
@@ -19,7 +19,7 @@ const addUserToGroupReducer = (state = initState, action) => {
                 ...state,
                 IsLoading: false,
                 addGroupPermissionError: null,
-                group: action.group
+                groupPermissions: action.groupPermissions
             };
         case actionTypes.ADD_PERMISSION_TO_GROUP_FAIL:
             return {

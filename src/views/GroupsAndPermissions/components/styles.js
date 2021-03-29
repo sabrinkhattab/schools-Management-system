@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+
 const useStyles = makeStyles(theme => ({
     rootPermission: {
         '& > *': {
@@ -8,7 +9,13 @@ const useStyles = makeStyles(theme => ({
         overflowY: 'scroll'
     },
     activeChip: {
-        backgroundColor: theme.palette.success.main
+        backgroundColor: theme.palette.success.main,
+        '&:hover, &:focus': {
+            backgroundColor: theme.palette.success.main,
+        }
+    },
+    unSelectedChip: {
+        backgroundColor: 'rgb(206, 206, 206)'
     },
     deleteIcon: {
         color: theme.palette.error.main
@@ -37,17 +44,6 @@ const useStyles = makeStyles(theme => ({
     dialogCustomizedWidth: {
         'max-width': '80%'
     },
-    chip: {
-        // backgroundColor: "#59d8ef",
-        // "&:hover": {
-        //     backgroundColor: theme.palette.success.light,
-        //     cursor: "pointer"
-        // },
-        // "&:focus": {
-        //     backgroundColor: theme.palette.success.main,
-        //     cursor: "pointer"
-        // }
-    }
 
 }));
 

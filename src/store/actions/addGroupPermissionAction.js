@@ -13,7 +13,7 @@ const addGroupPermission = ({ group_id, permission_id }) => {
 
                 dispatch({
                     type: actionTypes.ADD_PERMISSION_TO_GROUP_SUCCESS,
-                    group: response.data
+                    groupPermissions: response.data
                 });
 
                 return Promise.resolve(response);
