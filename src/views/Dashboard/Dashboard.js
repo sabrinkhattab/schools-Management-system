@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, Paper, Avatar, TextField, Button } from '@material-ui/core';
-import { isPossiblePhoneNumber, isValidPhoneNumber } from 'libphonenumber-js'
-import parsePhoneNumber from 'libphonenumber-js'
-
 import { withRouter } from 'react-router-dom';
-
-
+import { ResponsiveDrawer } from '../../layout'
+import { getItemFromLocalStorage } from '../../helpers/localStorage'
+import { isLoggedIn } from '../../helpers/TokenProvider'
 
 const Dashboard = () => {
-    console.log(isValidPhoneNumber('01512108605', 'EG'))
-    let phone = parsePhoneNumber('01512108605')
-    console.log(phone)
+    let accessToken = getItemFromLocalStorage('accessToken')
+    // console.log(getItemFromLocalStorage('accessToken'))
+    // console.log(getItemFromLocalStorage('refreshToken'))
+    console.log(accessToken)
 
     return (
-        <Grid container justify="center" alignItems="center">
-            <Grid item>
-                welcome to dashboard ....
-            </Grid>
+        // <Grid container justify="center" alignItems="center">
+        //     <Grid item>
+        //     </Grid>
 
-        </Grid>
+        // </Grid>
+        <>
+            <ResponsiveDrawer />
+        </>
     )
 }
 

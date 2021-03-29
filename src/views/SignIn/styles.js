@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import backgroundImage from '../../assets/images/book-with-green-board-background.jpg'
 const useStyles = makeStyles(theme => ({
     paper: {
-        width: '50%',
+        width: '70%',
         height: '70vh',
         justifySelf: 'center',
         alignSelf: 'center',
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
         padding: '2em'
     },
     loginWrapper: {
-        height: "100%"
+        height: "100%",
     },
     schoolLogo: {
         width: '70px',

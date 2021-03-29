@@ -1,6 +1,6 @@
 import * as actionTypes from './actionsTypes'
 import { postService } from '../../services'
-
+import { setItemInLocalStorage } from '../../helpers/localStorage'
 const signInAction = ({ phone_number, password, sid }) => {
     console.log('tesst', { phone_number, password, sid })
     return (dispatch, getState) => {
@@ -23,11 +23,10 @@ const signInAction = ({ phone_number, password, sid }) => {
                     });
                     // set refreshtoken,and AccessToken in localStorage
                     let accessToken = response.data.access;
-                    localStorage.setItem('accessToken', accessToken);
                     // refreshToken
                     let refreshToken = response.data.refresh;
-                    localStorage.setItem('refreshToken', refreshToken);
-
+                    // setItemInLocalStorage('accessToken' , accessToken)
+                    localStorage.setItem('accessToken', accessToken);
                     return Promise.resolve('Signed in successfully');
                 },
                     error => {

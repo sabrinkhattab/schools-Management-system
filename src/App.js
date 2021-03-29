@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import theme from './theme';
 import store from './store';
 import Routes from './Routes';
+import { ToastProvider } from 'react-toast-notifications';
 
 
 
@@ -16,13 +17,16 @@ function App() {
   return (
     // fallback={<Loader />}
     <Suspense fallback={<div>waiting...</div>}>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Router history={browserHistory}>
-            <Routes />
-          </Router>
-        </ThemeProvider>
-      </Provider>
+      <ToastProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <Router history={browserHistory}>
+              <Routes />
+            </Router>
+          </ThemeProvider>
+        </Provider>
+      </ToastProvider>
+
     </Suspense>
   );
 }

@@ -5,9 +5,6 @@ import {
     TextField,
     Button,
     CircularProgress,
-    MenuItem,
-    InputLabel,
-    Select
 } from '@material-ui/core';
 import useStyles from './styles';
 import validate from 'validate.js';
@@ -17,6 +14,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import { useHistory } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 
 const schema = {
@@ -37,6 +35,7 @@ const schema = {
 
 
 const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
+    const { addToast } = useToasts();
     const classes = useStyles();
     let history = useHistory();
     const { handleSubmit, register } = useForm();
@@ -109,9 +108,13 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
     const onSubmit = (data) => {
         let formData = { phone_number: data.user, password: data.password, 'sid': schoolId }
         signIn(formData).then(res => {
-            history.push(`/sc/${schoolName}/dashboard`)
+            history.push(`/sc/${schoolName}/groups_permissions`)
+            addToast('successfully logged in', { appearance: 'success', autoDismiss: true });
         }).catch(err => {
-            console.log('err', err)
+            addToast(err.response.data.detail, { appearance: 'error', autoDismiss: true });
+            console.log('err', Object.keys(err))
+            console.log('err', err.response.data.detail)
+
         })
         console.log(data)
     }
@@ -122,23 +125,29 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
         <>
             <form className={classes.formWrapper} onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction="column" spacing={2} alignItems="center" justify="center">
-                    <Grid item>
-                        <TextField
-                            inputRef={register}
-                            name="user"
-                            defaultValue={formState.values.user}
-                            onChange={onChange}
-                            variant="outlined"
-                            helperText={
-                                hasError('user') ? formState.errors.user[0] : null
-                            }
-                            error={hasError('user')}
-                            label="user"
-                            autoComplete="off"
-
-                        />
+                    <Grid item lg={12}>
+                        <Grid container >
+                            <Grid item lg={12}>
+                                <TextField
+                                    inputRef={register}
+                                    name="user"
+                                    defaultValue={formState.values.user}
+                                    onChange={onChange}
+                                    variant="outlined"
+                                    helperText={
+                                        hasError('user') ? formState.errors.user[0] : null
+                                    }
+                                    error={hasError('user')}
+                                    label="user"
+                                    autoComplete="off"
+                                />
+                            </Grid>
+                            {/* <Grid item lg={4}>
+                                <CountrySelector />
+                            </Grid> */}
+                        </Grid>
                     </Grid>
-                    <Grid item >
+                    <Grid item lg={12}>
                         <TextField
                             name="password"
                             type="password"
@@ -159,6 +168,7 @@ const LoginForm = ({ schoolId, signIn, schoolName, state }) => {
                 </Grid>
 
             </form>
+
         </>
     )
 }

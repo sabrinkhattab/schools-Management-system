@@ -13,8 +13,6 @@ import { LoginForm } from './components'
 
 function SignIn({ state, getschoolLoginData, location }) {
 
-
-
     const classes = useStyles();
     const [schoolName, setSchoolName] = useState('')
 
